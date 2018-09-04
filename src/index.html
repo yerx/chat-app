@@ -33,37 +33,20 @@
           </div>
           <div id="event details" class="card">
             <div class="card-body">
-              <h1 class="card-title">Hosted by Gregory Alan Isakov</h1>
+              <h1 class="card-title">Hosted by Gregory Isakov</h1>
               <h4 class="card-subtitle" mb-2 text-muted">October 12, 2018</h3>
               <h4 class="card-text">Location: Los Angeles, CA</h5>
               <p class="lead">Your experience begins with a welcome cocktail and tour of the backyard garden where the concert is held. There will be a bonfire and seating. Once settled, Gregory Alan Isakov will begin the intimate concert. There will be plenty of farm-to-table tapas and beverages.</p>
             </div>
+          </div class="container">
+            <h4>Price per ticket</h4>
+            <h4>0.15 ether</h4>
+            <div class="row">
+              <button onclick="App.buyTix()">Buy</button>
+            </div>
+          <div>
+            <p id="trxMessage"></p>
           </div>
-          <div class="table-responsive">
-            <table class ="table table-hover">
-              <thead>
-                  <th scope="col">Qty tickets</th>
-                  <th scope="col">Total ($USD)</th>
-                  <th scope="col">Buy</th>
-              </thead>
-              <tbody id="buy tickets">
-                <tr>
-                  <td>1</td>
-                  <td>$25</td>
-                  <td><button type ="button" class="btn btn-primary">Buy</button></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>$50</td>
-                  <td><button type ="button" class="btn btn-primary">Buy</button></td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>$75</td>
-                  <td><button type ="button" class="btn btn-primary">Buy</button></td>
-                </tr>
-              </tbody>
-            </table>
           <div class="row">
             <p id="accountAddress" class="text-center"></p>
           </div>

@@ -1,5 +1,5 @@
-var Election = artifacts.require("./Election.sol");
+var ConcertTix = artifacts.require("./ConcertTix.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Election);
+  deployer.deploy(ConcertTix);
 };
