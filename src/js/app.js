@@ -20,25 +20,36 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON("Concerttix.json", function(data) {
-      var ConcerttixArtifact = data;
+    $.getJSON("ConcertTix.json", function(data) {
+      var ConcertTixArtifact = data;
     // Instantiate a new truffle contract from the artifact
-      App.contracts.Concerttix = TruffleContract(ConcerttixArtifact);
+      App.contracts.ConcertTix = TruffleContract(ConcertTixArtifact);
     // Connect provider to interact with contract
-      App.contracts.Concerttix.setProvider(App.web3Provider);
+      App.contracts.ConcertTix.setProvider(App.web3Provider);
 
-      return App.buyBtn();
+      return App.transferFunds();
   });
 },
 
-buyBtn: function () {
-    var x = document.getElementById("myBtn");
-    var ConcerttixInstance;
-    App.contracts.Concerttix.deployed().then(function(instance) {
+transferFunds: function () {
+    var x = document.getElementById("buyTicketsBtn");
+    var ConcertTixInstance;
+    App.contracts.ConcertTix.deployed().then(function(instance) {
       ConcerttixInstance = instance;
 
+      x.addEventListener("click", function() {
+        if(msg.value != ticketPrice) {
+          alert("Error. Please send the exact amount of ether.");
+        } elseif (ticketCount == 0) {
+          alert("Tickets are sold out");
+        } else {
+          return ConcertTixInstance.transferFunds( {from: msg.sender, value: msg.value});
+        }
+      }
+
+/*
       // do something with the events
-      return ConcerttixInstance.buyTickets.... {
+      return ConcertTixInstance.buyTickets.call() {
         x.addEventListener("click", function() {
           if
 
@@ -56,7 +67,7 @@ buyBtn: function () {
 
 
 
-
+/*
 buyBtn: function() {
   var x = document.getElementById("myBtn");
   App.contracts.Concerttix.deployed().then(function(instance) {
@@ -83,7 +94,8 @@ buyBtn: function() {
     }
   }
 }
-
+*/
+/*
   buyTix: function() {
     var buyBtnInstance
   }
@@ -98,9 +110,8 @@ buyBtn: function() {
       return ticketCountInstance =
     }
   },
-
-
 };
+*/
 
 $(function() {
   $(window).load(function() {
