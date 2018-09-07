@@ -1,4 +1,77 @@
-var Election = artifacts.require("./Election.sol");
+const ConcertTix = artifacts.require("./ConcertTix.sol");
+
+contract("ConcertTix", function(accounts) {
+
+  it('initializes contract', async function() {
+    const contract = await ConcertTix.deployed();
+    var approver = await contract.approver.call();
+    assert.equal(approver, 0x69ee9EC9045d3B650c1F52d40EAB79afB7458b0f, "approvers don't match");
+  });
+
+  it('takes a deposit', async function() {
+    const contract = await ConcertTix.deployed();
+    await contract.deposit(accounts[0], {value: 2e+18, from: accounts[1] });
+    assert.equal(web3.eth.getBalance(contract.address), 2e+18, "amount did not math");
+  });
+
+  it('makes the transaction when approved, approver: ' + accounts[2], async function () {
+    const contract = await ConcertTix.deployed();
+    await contract.deposit(accounts[0], { value: 1e+18, from: accounts[1] });
+    await contract.approve({ from: accounts[2] });
+    assert.equal(web3.eth.getBalance(contract.address), 0, "didn't transfer ether");
+  });
+
+});
+
+/*  // check that the initial ticket count is equal to 0
+  it("initalizes contract with the correct ticket count", function() {
+    return ConcertTix.deployed().then(function(instance) {
+      return instance.ticketCount();
+    }).then(function(count) {
+      assert.equal(count, 0);
+    });
+  });
+});
+
+
+
+
+/*      return instance.ticketCount();
+    }).then(function(count) {
+      assert.equal(count, 5);
+    });
+  });
+
+
+});
+*/
+
+/*
+  it("", function() {
+    return ConcertTix.deployed().then(function(instance) {
+      ConcertTixInstance = instance;
+      return
+    })
+  })
+
+
+});
+*/
+
+/*
+import "truffle/Assert.sol";
+import "truffle/DeployedAddresses.sol";
+import "../contracts/ConcertTix.sol";
+
+contract TestConcertTix {
+  ConcertTix concerttix = ConcertTix(DeployedAddresses.ConcertTix());
+
+  function testUserCanBuyTickets() public {
+
+  }
+}
+
+/*var Election = artifacts.require("./Election.sol");
 
 contract("Election", function(accounts) {
   var electionInstance;
@@ -86,3 +159,4 @@ contract("Election", function(accounts) {
     });
   });
 });
+*/
