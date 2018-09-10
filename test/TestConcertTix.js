@@ -2,23 +2,51 @@ const ConcertTix = artifacts.require("./ConcertTix.sol");
 
 contract("ConcertTix", function(accounts) {
 
+  /**
+   * Test to check that the contract initializes and that the approver's addresses
+   * is correct.
+   */
   it('initializes contract', async function() {
     const contract = await ConcertTix.deployed();
     var approver = await contract.approver.call();
     assert.equal(approver, 0x69ee9EC9045d3B650c1F52d40EAB79afB7458b0f, "approvers don't match");
   });
 
-  it('takes a deposit', async function() {
+  /**
+   * Test to return the address of the contract.
+   */
+  it('returns contract address', async function() {
     const contract = await ConcertTix.deployed();
-    await contract.deposit(accounts[0], {value: 2e+18, from: accounts[1] });
-    assert.equal(web3.eth.getBalance(contract.address), 2e+18, "amount did not math");
+    console.log(contract.address);
   });
 
+  /**
+   * Test that a deposit was made successfully.
+   */
+  it('takes a deposit', async function() {
+    const contract = await ConcertTix.deployed();
+    var receiver = await contract.receiver.call();
+    await contract.deposit(accounts[0], {value: 1e+18, from: accounts[1] });
+    assert.equal(web3.eth.getBalance(contract.address), 1e+18, "amount did not match");
+  });
+
+  /**
+   * Test that the approver can approve the transaction to withdraw funds.
+   */
   it('makes the transaction when approved, approver: ' + accounts[2], async function () {
     const contract = await ConcertTix.deployed();
     await contract.deposit(accounts[0], { value: 1e+18, from: accounts[1] });
     await contract.approve({ from: accounts[2] });
     assert.equal(web3.eth.getBalance(contract.address), 0, "didn't transfer ether");
+  });
+
+  /**
+   * Test to return the balance of the contract. 
+   */
+  it('returns the balance', aynsc function() {
+    const contract = await ConcertTix.deployed();
+    await contract.deposit(accounts[0], { value: 1e+18, from: accounts[1] });
+    return contract.getBalance(constract.address);
   });
 
 });
